@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="955301a5-5b55-4235-b547-30c2e9d4f508" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/CompDataPullAV.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompDataPullAV.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/volestim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/volestim.java" afterDir="false" />
-    </list>
+    <list default="true" id="955301a5-5b55-4235-b547-30c2e9d4f508" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -117,7 +114,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="4">
+  <component name="ProjectFrameBounds" extendedState="5">
     <option name="x" value="-1" />
     <option name="width" value="961" />
     <option name="height" value="1053" />
@@ -249,7 +246,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="0" width="961" height="1053" extended-state="4" />
+    <frame x="-1" y="0" width="961" height="1053" extended-state="5" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
