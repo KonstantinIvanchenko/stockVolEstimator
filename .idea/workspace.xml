@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="955301a5-5b55-4235-b547-30c2e9d4f508" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/CompDataPullAV.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CompDataPullAV.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompDataPullAV.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/volestim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/volestim.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,8 +18,11 @@
       <file leaf-file-name="volestim.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/volestim.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="420">
+              <caret line="28" selection-start-line="28" selection-end-line="28" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -26,10 +30,11 @@
       <file leaf-file-name="CompDataPullAV.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/CompDataPullAV.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="23" column="28" lean-forward="true" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+            <state relative-caret-position="1890">
+              <caret line="126" lean-forward="true" selection-start-line="126" selection-end-line="126" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#2091#2099#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -111,12 +116,12 @@
         <option value="$PROJECT_DIR$/src/PriceSpreadCont.java" />
         <option value="$PROJECT_DIR$/src/DataPull.java" />
         <option value="$PROJECT_DIR$/src/CompDataPullIEX.java" />
-        <option value="$PROJECT_DIR$/src/volestim.java" />
         <option value="$PROJECT_DIR$/src/CompDataPullAV.java" />
+        <option value="$PROJECT_DIR$/src/volestim.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="4">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-1" />
     <option name="width" value="961" />
     <option name="height" value="1053" />
@@ -248,35 +253,35 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="0" width="961" height="1053" extended-state="4" />
+    <frame x="-1" y="0" width="1922" height="1053" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.13277134" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="6" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.26343518" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.2631579" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="6" />
       <window_info id="Designer" order="3" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2544317" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12708333" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="4" />
       <window_info anchor="right" id="Theme Preview" order="5" />
       <window_info id="Favorites" order="5" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.115911484" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.58947366" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.13277134" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -284,7 +289,21 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="19" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/volestim.java</url>
+          <line>28</line>
+          <properties />
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/CompDataPullAV.java</url>
+          <line>122</line>
+          <properties />
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="23" />
     </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
@@ -301,6 +320,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="29" selection-start-line="29" selection-end-line="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -467,17 +489,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/volestim.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+        <state relative-caret-position="420">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/CompDataPullAV.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="28" lean-forward="true" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+        <state relative-caret-position="1890">
+          <caret line="126" lean-forward="true" selection-start-line="126" selection-end-line="126" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2091#2099#0" expanded="true" />
           </folding>
         </state>
       </provider>

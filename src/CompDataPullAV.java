@@ -69,29 +69,34 @@ public class CompDataPullAV implements DataPull {
     }
 
 
-    private String extractDataLines(JSONObject tempObject) {
+    private List<String> extractDataLines(JSONObject tempObject, String requiredField) {
+
+        List<String> requiredData = new ArrayList<String>();
 
         for (Object key : tempObject.keySet())
         {
             String keyString = (String) key;
             Object keyvalue = tempObject.get(keyString);
 
-            System.out.println("key: "+keyString+" value:"+keyvalue);
+            //System.out.println("key: "+keyString+" value:"+keyvalue);
+
+            if (keyString == requiredField) {
+                requiredData.add(keyvalue.toString());
+            }
 
             if (keyvalue instanceof  JSONObject)
-                extractDataLines((JSONObject) keyvalue);
+                extractDataLines((JSONObject) keyvalue, requiredField);
         }
 
-        return "";
+        return requiredData;
 
     }
 
 
-    public void getDataList(String timeSeriesType){
+    public List<String> getDataList(String timeSeriesType, String timeSeriesField){
         JSONObject tempObject = (JSONObject) rawJSONdata.get(timeSeriesType);
 
-        extractDataLines(tempObject);
-
+        return extractDataLines(tempObject, timeSeriesField);
     }
 
     public JSONObject getRawData() {
