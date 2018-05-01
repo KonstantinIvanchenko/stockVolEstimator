@@ -25,7 +25,7 @@ public class volestim {
                 "1min");
 
         compDataPullAV.getRawData();
-        compDataPullAV.getDataList();
+        compDataPullAV.getDataList("Time Series (1min)");
 
     }
 }
