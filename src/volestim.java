@@ -20,7 +20,7 @@ public class volestim {
             String Ratio = compPullIEX.extractDataLines("ratio");
         }
         */
-
+/*
         compDataPullAV.buildGetReqStock("TIME_SERIES_INTRADAY",
                 "aapl",
                 "1min");
@@ -34,6 +34,18 @@ public class volestim {
             System.out.println("Close price index i" + Integer.toString(i)+ " "+closeData1min.get(i));
 
         }
+*/
+        CompDataPullAV_ compDataPullAV_ = new CompDataPullAV_();
+
+        compDataPullAV_.buildGetReqStock("TIME_SERIES_INTRADAY",
+                "aapl",
+                "1min");
+
+        compDataPullAV_.convertDataFromRaw();
+
+
+
+
 
     }
 }
