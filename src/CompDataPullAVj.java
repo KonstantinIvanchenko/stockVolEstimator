@@ -1,16 +1,7 @@
-import javafx.util.converter.DateStringConverter;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.type.TypeReference;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -26,22 +17,15 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 
-public class CompDataPullAV_ implements DataPull {
-
-    ArrayList<PriceSpreadCont> arrPrices;
+public class CompDataPullAVj implements DataPull {
 
     public String targetURL;
-    public String urlParameters;
-    public HttpURLConnection connection;
-    StringBuilder rawGetData;
 
-    //public JSONObject rawJSONdata;
-    //public JSONParser rawJSONParser;
-
-    public String rawJSONdata;
-
+    /**
+     * A nested class implementing required stock prices format
+     */
     public class shortPrice{
-        public shortPrice(){super();}
+        public shortPrice(){}
 
         public shortPrice(String[] items){
             if (items.length >= 5){
@@ -58,17 +42,42 @@ public class CompDataPullAV_ implements DataPull {
         public String closePrice;
         public String volume;
 
+        public shortPrice getShortPrice(){
+            return this;
+        }
+
+        public void setShortPrice(shortPrice sp){
+            this.openPrice = sp.openPrice;
+            this.closePrice = sp.closePrice;
+            this.highPrice = sp.highPrice;
+            this.lowPrice = sp.lowPrice;
+            this.volume = sp.volume;
+        }
+
     }
 
-    public class stampedPrices{
+    /**
+     * A nested class implementing required stock price format with time stamp insertion
+     */
+    public class stampedPrices extends shortPrice{
         public Date timeStamp;
-        public shortPrice prices;
+        public String cName;
 
         public stampedPrices(){super();}
 
         public stampedPrices(Date dateItem, shortPrice pricesItem){
             this.timeStamp = dateItem;
-            this.prices = pricesItem;
+            super.openPrice = pricesItem.openPrice;
+            super.highPrice = pricesItem.highPrice;
+            super.lowPrice = pricesItem.lowPrice;
+            super.closePrice = pricesItem.closePrice;
+            super.volume = pricesItem.volume;
+        }
+
+        public stampedPrices(Date dateItem, String cNameItem, String[] items){
+            super(items);
+            this.timeStamp = dateItem;
+            this.cName = cNameItem;
         }
 
         public Date getDate(){
@@ -80,36 +89,47 @@ public class CompDataPullAV_ implements DataPull {
         }
 
         public shortPrice getPrice(){
-            return this.prices;
+            return super.getShortPrice();
         }
 
         public void setPrice(shortPrice sp){
-            prices = sp;
+            super.setShortPrice(sp);
+        }
+
+        public void printStampedPrices(){
+            System.out.println("Date "+this.timeStamp+
+                    "CompName"+this.cName+
+                    "Open "+super.openPrice+
+                    "High "+super.highPrice+
+                    "Low" +super.lowPrice+
+                    "Close "+super.closePrice+
+                    "Volume "+super.volume
+            );
         }
 
     }
 
-    CompDataPullAV_(){
-        arrPrices = new ArrayList<PriceSpreadCont>(100);
-
-        rawGetData = new StringBuilder();
-        //rawJSONParser = new JSONParser();
+    CompDataPullAVj(){
     }
 
-    public void buildGetReqStock(String infoType, String compIndex, String timeframe){
+    public String buildGetReqStockURL(String infoType, String compIndex, String timeframe){
 
         String signatureAccess = getAccessSignature("AVaccessSign.txt");
 
-        if(infoType == "TIME_SERIES_INTRADAY" && (timeframe == "1min" ||
-                timeframe == "5min" || timeframe == "15min" || timeframe == "30min"
-                || timeframe == "60min")){
-            targetURL = new String ("https://" +
+        if(infoType.equals("TIME_SERIES_INTRADAY") && (timeframe.equals("1min") ||
+                timeframe.equals("5min") || timeframe.equals("15min") || timeframe.equals("30min")
+                || timeframe.equals("60min"))){
+            this.targetURL = new String ("https://" +
                     "www.alphavantage.co/query?" +
                     "function="+infoType+
                     "&symbol="+compIndex+
                     "&interval="+timeframe+
                     "&apikey="+signatureAccess);
+
+            return targetURL;
         }
+
+        return null;
     }
 
     private String getAccessSignature(String path)
@@ -129,12 +149,16 @@ public class CompDataPullAV_ implements DataPull {
     }
 
 
-    //**********************************
+    /**
+     * The method pulls a json node tree. A prior raw data pull request (i.e. getRawData()) is not needed with this method.
+     * @return List of price sets.
+     */
 
-    public List<stampedPrices> convertDataFromRaw(){
+    public List<stampedPrices> convertDataFromRaw(String url, String compSymb) throws IOException{
         //String rawDataFromAV = getRawData();
         try {
-            URL url = new URL(targetURL);
+            //URL url = new URL(this.targetURL);
+            URL localURL = new URL(url);
 
             ObjectMapper jmapper = new ObjectMapper();
             DateFormat dformat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
@@ -143,7 +167,7 @@ public class CompDataPullAV_ implements DataPull {
 
             //List<stampedPrices> listPrices = jmapper.readValue(url, new TypeReference<stampedPrices>(){});
 
-            JsonNode outputNode = new ObjectMapper().readTree(url);
+            JsonNode outputNode = new ObjectMapper().readTree(localURL);
 
             JsonNode outputTimeSeries = outputNode.path("Time Series (1min)");
 
@@ -158,7 +182,7 @@ public class CompDataPullAV_ implements DataPull {
             {
                 String fieldd = itd.next();
                 JsonNode dateIteration = outputTimeSeries.get(fieldd);
-                System.out.println(fieldd + " => "+dateIteration);
+                //System.out.println(fieldd + " => "+dateIteration);
 
                 //shortPrice prices = jmapper.readValue(outputTimeSeries.get(field), shortPrice.class);
 
@@ -171,22 +195,25 @@ public class CompDataPullAV_ implements DataPull {
                     String fieldp = itp.next();
 
                     JsonNode priceIteration = dateIteration.get(fieldp);
-                    System.out.println(fieldp + " => "+priceIteration);
+                    //System.out.println(fieldp + " => "+priceIteration);
 
                     //newPrices.prices[index] =
                     tempString[index] = priceIteration.toString();
                     index++;
                 }
 
-                shortPrice tempShortPrice = new shortPrice(tempString);
-                //get date with predefined format
-                stampedPrices tempStampedPrice = new stampedPrices(dformat.parse(fieldd), tempShortPrice);
+                stampedPrices tStampedPrice = new stampedPrices(dformat.parse(fieldd), compSymb, tempString);
 
-                listPrices.add(tempStampedPrice);
+                //shortPrice tempShortPrice = new shortPrice(tempString);
+                //get date with predefined format
+                //stampedPrices tempStampedPrice = new stampedPrices(dformat.parse(fieldd), tempShortPrice);
+
+                listPrices.add(tStampedPrice);
 
             }
 
             return listPrices;
+
         }catch(java.text.ParseException e){
             e.printStackTrace();
         }
@@ -197,45 +224,6 @@ public class CompDataPullAV_ implements DataPull {
 
         return null;
 
-    }
-
-    private String getRawData() {
-        try {
-            //Create connection
-            URL url = new URL(targetURL);
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            InputStream is = connection.getInputStream();
-            InputStreamReader isr = new InputStreamReader(is);
-            BufferedReader bufLineInput = new BufferedReader(isr);
-
-            rawGetData = new StringBuilder();
-            String line;
-
-            while ((line = bufLineInput.readLine()) != null) {
-                rawGetData.append(line);
-                //rawGetData.append('\r');
-            }
-
-            bufLineInput.close();
-
-            //Convert received string into JSON object and return
-            //Object obj = rawJSONParser.parse(rawGetData.toString());
-            //rawJSONdata = (JSONObject) obj;
-
-            //return rawJSONdata;
-
-            return rawGetData.toString();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (connection != null)
-                //Close connection regardless
-                connection.disconnect();
-        }
-
-        return rawJSONdata;
     }
 
 

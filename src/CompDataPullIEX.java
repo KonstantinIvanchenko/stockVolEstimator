@@ -29,7 +29,7 @@ public class CompDataPullIEX implements DataPull {
     }
 
 
-    public void buildGetReqStock(String infoType, String compIndex, String timeframe) {
+    public String buildGetReqStockURL(String infoType, String compIndex, String timeframe) {
 
         if (infoType == "splits" && (timeframe == "5y" || timeframe == "2y" || timeframe == "1y" || timeframe == "ytd"
                 || timeframe == "6m" || timeframe == "3m" || timeframe == "1m")) {
@@ -37,6 +37,8 @@ public class CompDataPullIEX implements DataPull {
         } else {
             targetURL = new String("https://api.iextrading.com/1.0/stock/" + compIndex.toLowerCase() + "/price");
         }
+
+        return targetURL;
     }
 
     /*public String extractDataLines(JSONAr tempObject) {

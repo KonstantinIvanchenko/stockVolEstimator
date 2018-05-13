@@ -7,11 +7,13 @@ import java.util.ArrayList;
 public class CompSymbReader {
 
     public ArrayList<String> compSymbols;
+    public int compSymbolLength;
 
     public void getCompSymbols()
 
     {
         compSymbols = new ArrayList<>();
+        compSymbolLength = 0;
 
         String csvFileName = "companylist.csv";
 
@@ -29,6 +31,7 @@ public class CompSymbReader {
                 String[] strArray = line.split(delimiter);
 
                 compSymbols.add(strArray[0]);
+                compSymbolLength++;
 
                 //System.out.print(strArray[0] + "\n");
             }

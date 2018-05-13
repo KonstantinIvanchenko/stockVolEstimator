@@ -36,7 +36,7 @@ public class CompDataPullAV implements DataPull {
         rawJSONParser = new JSONParser();
     }
 
-    public void buildGetReqStock(String infoType, String compIndex, String timeframe){
+    public String buildGetReqStockURL(String infoType, String compIndex, String timeframe){
 
         String signatureAccess = getAccessSignature("AVaccessSign.txt");
 
@@ -49,7 +49,11 @@ public class CompDataPullAV implements DataPull {
                     "&symbol="+compIndex+
                     "&interval="+timeframe+
                     "&apikey="+signatureAccess);
+
+            return targetURL;
         }
+
+        return null;
     }
 
     private String getAccessSignature(String path)

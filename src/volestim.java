@@ -1,14 +1,11 @@
-import java.net.ConnectException;
-import java.util.List;
-
 public class volestim {
     public static void main(String[] args){
         CompSymbReader compSymb = new CompSymbReader();
         compSymb.getCompSymbols();
 
-        CompDataPullIEX compPullIEX = new CompDataPullIEX();
+        //CompDataPullIEX compPullIEX = new CompDataPullIEX();
 
-        CompDataPullAV compDataPullAV = new CompDataPullAV();
+        //CompDataPullAV compDataPullAV = new CompDataPullAV();
 
         /*
         for (String object: compSymb.compSymbols){
@@ -35,17 +32,20 @@ public class volestim {
 
         }
 */
-        CompDataPullAV_ compDataPullAV_ = new CompDataPullAV_();
+/*
+        CompDataPullAVj compDataPullAVj = new CompDataPullAVj();
 
-        compDataPullAV_.buildGetReqStock("TIME_SERIES_INTRADAY",
+        compDataPullAVj.buildGetReqStockURL("TIME_SERIES_INTRADAY",
                 "aapl",
                 "1min");
 
-        compDataPullAV_.convertDataFromRaw();
+        compDataPullAVj.convertDataFromRaw();
+*/
+
+        CompDataReduce compDataInst = new CompDataReduce("TIME_SERIES_INTRADAY", "1min");
+        compDataInst.CompDataCollect();
 
 
-
-
-
+        System.out.println("Volestim terminated.");
     }
 }

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public interface DataPull {
 
-    public abstract void buildGetReqStock(String infoType, String compIndex, String timeFrame);
+    public abstract String buildGetReqStockURL(String infoType, String compIndex, String timeFrame);
 
 
 }
