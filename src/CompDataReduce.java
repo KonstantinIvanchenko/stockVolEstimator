@@ -1,9 +1,13 @@
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import java.util.concurrent.*;
 
 import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 
 public class CompDataReduce {
@@ -176,13 +180,43 @@ public class CompDataReduce {
         //Comp List for a burst write
         ArrayList<String> compListBurst = new ArrayList<>();
 
+        //Current date/time
+        Date date = new Date();
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        df.setTimeZone(TimeZone.getTimeZone("US/Eastern"));
+        //Use this item for date comparison
+        String dateStr = df.format(date);
+        //TODO: Use date.getTime() to make time comparison
+
+
         for (Iterator<String> i = compSymbData.compSymbols.iterator(); i.hasNext(); ) {
             String iCompSymb = i.next();
 
-            File iDataFile = new File("../volestimData/" + iCompSymb + "Data.csv");
+            String fileName = "../volestimData/" + iCompSymb + "Data.csv";
+
+            File iDataFile = new File(fileName);
+            String timeEntry = new String();
 
             if (iDataFile.exists() && !iDataFile.isDirectory()) {
-                //Check latest item
+
+                //Check latest item in each file
+                try (BufferedReader br = new BufferedReader(new FileReader(fileName))){
+                    String line;
+
+                    line = br.readLine();
+
+                    if (line.isEmpty()){
+                        //add to burst list
+                    }
+                    else {
+                        String[] splitLine = line.split("\\,");
+                        timeEntry = splitLine[0];
+                    }
+
+                }catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
 
                 //if item is up to date (not older than 1 day) put it in a list of items for a burst pull request (INTRADAY 1min)
 
