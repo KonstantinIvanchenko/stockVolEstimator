@@ -3,6 +3,7 @@ import java.util.*;
 
 import java.util.concurrent.*;
 
+
 public class CompDataReduce {
     private CompSymbReader compSymbData;
     private CompDataPullAVj compStockData;
@@ -28,14 +29,18 @@ public class CompDataReduce {
         arrCompStockData.clear();
 
         int numThread = 0;
+        //even though data list is synchonized, mutex is used in addition to block attempt of parallel insertions into it.
         Semaphore mutex = new Semaphore(1, true);
-        Semaphore block = new Semaphore(4, true);
+        //permits limited number of simultaneous threads
+        Semaphore block = new Semaphore(10, true);
 
         //int waitForTermination = compSymbData.compSymbolLength;
         ExecutorService es = Executors.newCachedThreadPool();
 
+        //Permits further execution after latch == 0
         CountDownLatch latch = new CountDownLatch(compSymbData.compSymbolLength);
 
+        long executionTime = System.currentTimeMillis();
 
         for (Iterator<String> i = compSymbData.compSymbols.iterator(); i.hasNext(); ) {
             String iCompSymb = i.next();
@@ -71,6 +76,8 @@ public class CompDataReduce {
         }*/
 
 
+
+//Each Thread pulls separate group of acc data for each company name
             new Thread("" + numThread) {
                 public void run() {
                     try {
@@ -101,6 +108,7 @@ public class CompDataReduce {
 
             numThread++;
         }
+
 
 /*
                 es.submit(()-> new Runnable() {
@@ -139,6 +147,9 @@ public class CompDataReduce {
 
         try {
             latch.await();
+
+            executionTime = System.currentTimeMillis() - executionTime;
+            System.out.println("Elapsed Time: " + executionTime + " ms");
         }catch (InterruptedException e)
         {
             e.printStackTrace();

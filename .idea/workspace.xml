@@ -2,24 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="955301a5-5b55-4235-b547-30c2e9d4f508" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/CompDataReduce.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/companylist.csv" beforeDir="false" afterPath="$PROJECT_DIR$/companylist.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/stockVolatilityEstimator/CompDataPullAV.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/stockVolatilityEstimator/CompDataPullAV.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/stockVolatilityEstimator/CompDataPullAV_$shortPrice.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/stockVolatilityEstimator/CompDataPullAV_$stampedPrices.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/stockVolatilityEstimator/CompDataPullAV_.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/stockVolatilityEstimator/CompDataPullIEX.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/stockVolatilityEstimator/CompDataPullIEX.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/stockVolatilityEstimator/CompSymbReader.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/stockVolatilityEstimator/CompSymbReader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/stockVolatilityEstimator/DataPull.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/stockVolatilityEstimator/DataPull.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/stockVolatilityEstimator/volestim.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/stockVolatilityEstimator/volestim.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CompDataPullAV.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompDataPullAV.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CompDataPullAV_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompDataPullAVj.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CompDataPullIEX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompDataPullIEX.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CompSymbReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompSymbReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataPull.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataPull.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PriceSpreadCont.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PriceSpreadCont.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/volestim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/volestim.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CompDataReduce.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompDataReduce.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -43,8 +27,8 @@
       <file leaf-file-name="CompDataReduce.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/CompDataReduce.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4">
-              <caret line="153" column="2" selection-start-line="153" selection-start-column="2" selection-end-line="153" selection-end-column="2" />
+            <state relative-caret-position="306">
+              <caret line="34" column="42" selection-start-line="34" selection-start-column="42" selection-end-line="34" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -55,12 +39,10 @@
       <file leaf-file-name="CompDataPullAVj.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/CompDataPullAVj.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
+            <state relative-caret-position="1125">
               <caret line="101" column="20" selection-start-line="101" selection-start-column="20" selection-end-line="101" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2601#2602#0" expanded="true" />
-                <element signature="e#2648#2649#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -137,7 +119,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="4">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-1" />
     <option name="width" value="961" />
     <option name="height" value="1053" />
@@ -147,6 +129,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -173,9 +157,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
-      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -272,7 +254,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="0" width="961" height="1053" extended-state="4" />
+    <frame x="-1" y="0" width="1922" height="1053" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -282,18 +265,18 @@
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="6" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2863158" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.38210526" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="6" />
       <window_info id="Designer" order="3" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2148071" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.10729167" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="4" />
       <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.2263158" />
       <window_info id="Favorites" order="5" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="1.0" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -316,12 +299,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/CompDataReduce.java</url>
-          <line>146</line>
+          <line>157</line>
           <properties />
           <option name="timeStamp" value="54" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/CompDataReduce.java</url>
+          <line>148</line>
+          <properties />
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="59" />
+      <option name="time" value="60" />
     </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
@@ -340,8 +329,6 @@
           <caret line="100" column="42" selection-start-line="100" selection-start-column="42" selection-end-line="100" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2601#2602#0" expanded="true" />
-            <element signature="e#2648#2649#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -468,8 +455,6 @@
           <caret line="168" column="90" lean-forward="true" selection-start-line="168" selection-start-column="90" selection-end-line="168" selection-end-column="90" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2601#2602#0" expanded="true" />
-            <element signature="e#2648#2649#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -737,20 +722,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/CompDataPullAVj.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
+        <state relative-caret-position="1125">
           <caret line="101" column="20" selection-start-line="101" selection-start-column="20" selection-end-line="101" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2601#2602#0" expanded="true" />
-            <element signature="e#2648#2649#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/CompDataReduce.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4">
-          <caret line="153" column="2" selection-start-line="153" selection-start-column="2" selection-end-line="153" selection-end-column="2" />
+        <state relative-caret-position="306">
+          <caret line="34" column="42" selection-start-line="34" selection-start-column="42" selection-end-line="34" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
