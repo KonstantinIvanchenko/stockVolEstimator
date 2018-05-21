@@ -9,7 +9,7 @@ public class CompSymbReader {
     public ArrayList<String> compSymbols;
     public int compSymbolLength;
 
-    public void getCompSymbols()
+    public void loadCompSymbols()
 
     {
         compSymbols = new ArrayList<>();

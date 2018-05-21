@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="955301a5-5b55-4235-b547-30c2e9d4f508" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CompDataReduce.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompDataReduce.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CompSymbReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompSymbReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/volestim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/volestim.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,8 +19,8 @@
       <file leaf-file-name="volestim.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/volestim.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="735">
-              <caret line="49" selection-start-line="49" selection-end-line="49" />
+            <state relative-caret-position="483">
+              <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
             </state>
           </provider>
         </entry>
@@ -27,8 +28,8 @@
       <file leaf-file-name="CompDataReduce.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/CompDataReduce.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="34" column="42" selection-start-line="34" selection-start-column="42" selection-end-line="34" selection-end-column="42" />
+            <state relative-caret-position="637">
+              <caret line="204" column="20" selection-start-line="204" selection-start-column="20" selection-end-line="204" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -57,39 +58,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CompSymbReader.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/CompSymbReader.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="33" column="35" selection-start-line="33" selection-start-column="35" selection-end-line="33" selection-end-column="35" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PriceSpreadCont.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/PriceSpreadCont.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" selection-start-line="5" selection-end-line="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CompDataPullIEX.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/CompDataPullIEX.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="40" column="25" selection-start-line="40" selection-start-column="25" selection-end-line="40" selection-end-column="25" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -109,17 +77,17 @@
         <option value="$PROJECT_DIR$/src/CompDataPullAV_.java" />
         <option value="$PROJECT_DIR$/src/StampedPrices.java" />
         <option value="$PROJECT_DIR$/src/PriceSpreadCont.java" />
-        <option value="$PROJECT_DIR$/src/CompSymbReader.java" />
-        <option value="$PROJECT_DIR$/src/volestim.java" />
         <option value="$PROJECT_DIR$/src/DataPull.java" />
         <option value="$PROJECT_DIR$/src/CompDataPullAV.java" />
         <option value="$PROJECT_DIR$/src/CompDataPullIEX.java" />
         <option value="$PROJECT_DIR$/src/CompDataPullAVj.java" />
+        <option value="$PROJECT_DIR$/src/CompSymbReader.java" />
+        <option value="$PROJECT_DIR$/src/volestim.java" />
         <option value="$PROJECT_DIR$/src/CompDataReduce.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="4">
     <option name="x" value="-1" />
     <option name="width" value="961" />
     <option name="height" value="1053" />
@@ -254,23 +222,23 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="0" width="1922" height="1053" extended-state="6" />
+    <frame x="-1" y="0" width="961" height="1053" extended-state="4" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.13263159" />
+      <window_info active="true" anchor="bottom" id="Messages" order="10" visible="true" weight="0.13263159" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="6" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2863158" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.21473685" />
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="6" />
       <window_info id="Designer" order="3" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.10729167" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2148071" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="4" />
@@ -299,13 +267,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/CompDataReduce.java</url>
-          <line>157</line>
+          <line>163</line>
           <properties />
           <option name="timeStamp" value="54" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/CompDataReduce.java</url>
-          <line>148</line>
+          <line>154</line>
           <properties />
           <option name="timeStamp" value="59" />
         </line-breakpoint>
@@ -662,40 +630,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/PriceSpreadCont.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CompSymbReader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="33" column="35" selection-start-line="33" selection-start-column="35" selection-end-line="33" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DataPull.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CompDataPullIEX.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="40" column="25" selection-start-line="40" selection-start-column="25" selection-end-line="40" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/CompDataPullAV.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="347">
@@ -713,13 +647,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/volestim.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="49" selection-start-line="49" selection-end-line="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/CompDataPullAVj.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1125">
@@ -730,10 +657,51 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/CompDataPullIEX.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="40" column="25" selection-start-line="40" selection-start-column="25" selection-end-line="40" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PriceSpreadCont.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/volestim.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CompSymbReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DataPull.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/CompDataReduce.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="34" column="42" selection-start-line="34" selection-start-column="42" selection-end-line="34" selection-end-column="42" />
+        <state relative-caret-position="637">
+          <caret line="204" column="20" selection-start-line="204" selection-start-column="20" selection-end-line="204" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -3,13 +3,19 @@ import java.util.*;
 
 import java.util.concurrent.*;
 
+import java.io.File;
+
 
 public class CompDataReduce {
-    private CompSymbReader compSymbData;
+
     private CompDataPullAVj compStockData;
+    public CompSymbReader compSymbData;
     public StringBuilder sTimeSeries;
     public StringBuilder sTimePeriod;
 
+    //Aggregated data list:
+    //Cleared every new pull iteration
+    //Stored
     public ArrayList<List<CompDataPullAVj.stampedPrices>> arrCompStockData;
     private List<CompDataPullAVj.stampedPrices> listCompStockDataSync;
 
@@ -20,12 +26,12 @@ public class CompDataReduce {
         sTimeSeries = new StringBuilder(timeSeries);
         sTimePeriod = new StringBuilder(timePeriod);
 
-        compSymbData.getCompSymbols();
+        compSymbData.loadCompSymbols();
         arrCompStockData = new ArrayList<List<CompDataPullAVj.stampedPrices>>(compSymbData.compSymbolLength);
         listCompStockDataSync = Collections.synchronizedList( new ArrayList<>() );
     }
 
-    public boolean CompDataCollect() {
+    public boolean CompDataCollect(ArrayList<String> itSymbols, String series, String period) {
         arrCompStockData.clear();
 
         int numThread = 0;
@@ -42,7 +48,7 @@ public class CompDataReduce {
 
         long executionTime = System.currentTimeMillis();
 
-        for (Iterator<String> i = compSymbData.compSymbols.iterator(); i.hasNext(); ) {
+        for (Iterator<String> i = itSymbols.iterator(); i.hasNext(); ) {
             String iCompSymb = i.next();
 /*
             String newUrl = new String(compStockData.buildGetReqStockURL(sTimeSeries.toString(), iCompSymb, sTimePeriod.toString()));
@@ -82,7 +88,7 @@ public class CompDataReduce {
                 public void run() {
                     try {
                         block.acquire();
-                        String newUrl = new String(compStockData.buildGetReqStockURL(sTimeSeries.toString(), iCompSymb, sTimePeriod.toString()));
+                        String newUrl = new String(compStockData.buildGetReqStockURL(series, iCompSymb, period));
                         System.out.println(newUrl);
 
                         List<CompDataPullAVj.stampedPrices> tempList = compStockData.convertDataFromRaw(newUrl, iCompSymb);
@@ -163,8 +169,40 @@ public class CompDataReduce {
 
              return true;
         }
-
-
-
     }
+
+    boolean addCompDataAll () {
+
+        //Comp List for a burst write
+        ArrayList<String> compListBurst = new ArrayList<>();
+
+        for (Iterator<String> i = compSymbData.compSymbols.iterator(); i.hasNext(); ) {
+            String iCompSymb = i.next();
+
+            File iDataFile = new File("../volestimData/" + iCompSymb + "Data.csv");
+
+            if (iDataFile.exists() && !iDataFile.isDirectory()) {
+                //Check latest item
+
+                //if item is up to date (not older than 1 day) put it in a list of items for a burst pull request (INTRADAY 1min)
+
+                //if item is outdated, fill the gap - check missing time span:
+                //If older than 1 month collect weekly data
+                //For the last month collect all weekly data
+                //For older time, get monthly data
+
+
+            } else {
+                //Create new Data file
+                //add item in a list of items for a burst write
+            }
+
+
+        }
+
+        //make a burst pull and write
+
+        return true;
+    }
+
 }

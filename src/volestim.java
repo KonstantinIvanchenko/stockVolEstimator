@@ -1,7 +1,7 @@
 public class volestim {
     public static void main(String[] args){
-        CompSymbReader compSymb = new CompSymbReader();
-        compSymb.getCompSymbols();
+        //CompSymbReader compSymb = new CompSymbReader();
+        //compSymb.loadCompSymbols();
 
         //CompDataPullIEX compPullIEX = new CompDataPullIEX();
 
@@ -43,7 +43,7 @@ public class volestim {
 */
 
         CompDataReduce compDataInst = new CompDataReduce("TIME_SERIES_INTRADAY", "1min");
-        compDataInst.CompDataCollect();
+        compDataInst.CompDataCollect(compDataInst.compSymbData.compSymbols, compDataInst.sTimeSeries.toString(), compDataInst.sTimePeriod.toString());
 
 
         System.out.println("Volestim terminated.");
