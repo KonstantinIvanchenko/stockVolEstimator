@@ -60,6 +60,7 @@ public class CompDataReduce {
 
     /**
      * Updates All data with parameters specified in sTimePeriod and sTimeSeries
+     * Using threads for data pulling per company.
      * @return true on successful update of the arrCompStockData
      */
     public boolean CompDataCollectAll() {
@@ -138,7 +139,8 @@ public class CompDataReduce {
     }
 
     /**
-     * Updates company data for a specific company list and adjusted timeframe
+     * Updates company data for a specific company list and adjusted timeframe.
+     * Using threads for data pulling per company.
      * @param itSymbols list of company symbols to collect data for
      * @param series type of data series to be requested
      * @param period time period to collect data for
@@ -344,7 +346,15 @@ public class CompDataReduce {
                 //For older time, get monthly data
 
                 if (secTimeGap == 0){
-                    setsTimePeriod("TIME_SERIES_INTRADAY");
+                    //setsTimePeriod("1min");
+                    //setsTimeSeries("TIME_SERIES_INTRADAY");
+
+//TODO: add list key-values pairs for each company name in a first run and use concurrent "DataPuller".
+//TODO: Split methods to 1. Reader and key-values mapper 2. Read of key-value pairs and writer.
+
+                    ArrayList<String> striz = new ArrayList<String>();
+                    striz.add("sdf");
+                    CompDataCollect(new ArrayList<String>().add(iCompSymb), "TIME_SERIES_INTRADAY", "1min");
 
                 }else if (secTimeGap <= 86400) {//shorter than day
 
