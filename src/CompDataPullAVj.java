@@ -112,6 +112,13 @@ public class CompDataPullAVj implements DataPull {
     CompDataPullAVj(){
     }
 
+    /**
+     * URL builder for request types INTRADAY and DAILY
+     * @param infoType - request type identifier
+     * @param compIndex - company 4-letter index
+     * @param timeframe - timeframe identifier
+     * @return targetURL - in the format of alphavantage.co
+     */
     public String buildGetReqStockURL(String infoType, String compIndex, String timeframe){
 
         String signatureAccess = getAccessSignature("AVaccessSign.txt");
@@ -129,9 +136,50 @@ public class CompDataPullAVj implements DataPull {
             return targetURL;
         }
 
+        if(infoType.equals("TIME_SERIES_DAILY") && (timeframe.equals("full") ||
+                timeframe.equals("compact"))){
+            this.targetURL = new String ("https://" +
+                    "www.alphavantage.co/query?" +
+                    "function="+infoType+
+                    "&symbol="+compIndex+
+                    "&outputsize="+timeframe+
+                    "&apikey="+signatureAccess);
+
+            return targetURL;
+        }
+
         return null;
     }
 
+    /**
+     * URL builder for request types WEEKLY and MONTHLY
+     * @param infoType - request type identifier
+     * @param compIndex - company 4-letter index
+     * @return targetURL - in the format of alphavantage.co
+     */
+    public String buildGetReqStockURL(String infoType, String compIndex){
+
+        String signatureAccess = getAccessSignature("AVaccessSign.txt");
+
+        if(infoType.equals("TIME_SERIES_WEEKLY") || infoType.equals("TIME_SERIES_MONTHLY")){
+            this.targetURL = new String ("https://" +
+                    "www.alphavantage.co/query?" +
+                    "function="+infoType+
+                    "&symbol="+compIndex+
+                    "&apikey="+signatureAccess);
+
+            return targetURL;
+        }
+
+        return null;
+    }
+
+
+    /**
+     * Loads access signature from file. Serves as user identifier. File shall contain no other data.
+     * @param path - Path to file storing the signature.
+     * @return returns signature as string
+     */
     private String getAccessSignature(String path)
     {
         try{
@@ -154,13 +202,31 @@ public class CompDataPullAVj implements DataPull {
      * @return List of price sets.
      */
 
-    public List<stampedPrices> convertDataFromRaw(String url, String compSymb) throws IOException{
+    /**
+     *
+     * @param url - targetURL for data request
+     * @param compSymb
+     * @return
+     * @throws IOException
+     */
+
+    /**
+     * Executes data request in and process it with a specific json node identifier (Specific to alphavantage.co output format).
+     * @param url - url for data request. (Uses alphavantage.co format)
+     * @param compSymb - company 4-letter index
+     * @param outputNodeName - output node name for json parser. Example "Time Series (1min)"
+     * @return List of data converted into stampedPrices
+     * @throws IOException
+     */
+    public List<stampedPrices> convertDataFromRaw(String url, String compSymb, String outputNodeName) throws IOException{
         //String rawDataFromAV = getRawData();
         try {
             //URL url = new URL(this.targetURL);
             URL localURL = new URL(url);
 
             ObjectMapper jmapper = new ObjectMapper();
+
+//TODO: check the date format for non INTRADAY requests
             DateFormat dformat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
             jmapper.setDateFormat(dformat);
             jmapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -169,7 +235,7 @@ public class CompDataPullAVj implements DataPull {
 
             JsonNode outputNode = new ObjectMapper().readTree(localURL);
 
-            JsonNode outputTimeSeries = outputNode.path("Time Series (1min)");
+            JsonNode outputTimeSeries = outputNode.path(outputNodeName);
 
             //List<stampedPrices> listPrices = jmapper.readValue(outputNode, new TypeReference<stampedPrices>(){});
 

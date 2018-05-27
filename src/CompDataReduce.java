@@ -64,10 +64,11 @@ public class CompDataReduce {
 
 
     //Constants
-    private static class KeyConstants {
+    private static class Constants {
         public static final String INTRA_DAY = "TIME_SERIES_INTRADAY";
-        public static final String INTRA_WEEK = "TIME_SERIES_DAILY";
-        public static final String INTRA_MONTH = "TIME_SERIES_WEEKLY";
+        public static final String DAILY = "TIME_SERIES_DAILY";
+        public static final String WEEKLY = "TIME_SERIES_WEEKLY";
+        public static final String MONTHLY = "TIME_SERIES_MONTHLY";
 
         public static final String ONEMIN = "1min";
         public static final String FIVEMIN = "5min";
@@ -76,6 +77,46 @@ public class CompDataReduce {
         public static final String SIXTMIN = "60min";
 
     }
+
+    /**
+     * Gets outputnode name for json parser
+     * @param requestType - request type
+     * @param requestPeriod - request period for INTRADAY request type. Otherwise not used
+     * @return String with json node name
+     */
+    private String getOutputNode(String requestType, String requestPeriod){
+
+        if (requestType.equals(Constants.INTRA_DAY)){
+            switch (requestPeriod) {
+                case Constants.ONEMIN:
+                    return "Time Series (1min)";
+                case Constants.FIVEMIN:
+                    return "Time Series (5min)";
+                case Constants.FIFTMIN:
+                    return "Time Series (15min)";
+                case Constants.THIRMIN:
+                    return "Time Series (30min)";
+                case Constants.SIXTMIN:
+                    return "Time Series (60min)";
+                default:
+                    return "";
+            }
+        }
+        else {
+            switch (requestType) {
+                case Constants.DAILY:
+                    return "Time Series (Daily)";
+                case Constants.WEEKLY:
+                    return "Weekly Time Series";
+                case Constants.MONTHLY:
+                    return "Monthly Time Series";
+                default:
+                    return "";
+            }
+        }
+    }
+
+
 
     private static class CompDataGap {
         public int secGap;
@@ -116,6 +157,10 @@ public class CompDataReduce {
         arrCompStockData.clear();
 
         int numThread = 0;
+
+        //Get output node for json parser to parse raw data.
+        String outputNode = getOutputNode(Constants.INTRA_DAY,Constants.ONEMIN);
+
         //even though data list is synchonized, mutex is used in addition to block attempt of parallel insertions into it.
         Semaphore mutex = new Semaphore(1, true);
         //permits limited number of simultaneous threads
@@ -139,7 +184,7 @@ public class CompDataReduce {
                         String newUrl = new String(compStockData.buildGetReqStockURL(sTimeSeries, iCompSymb, sTimePeriod));
                         System.out.println(newUrl);
 
-                        List<CompDataPullAVj.stampedPrices> tempList = compStockData.convertDataFromRaw(newUrl, iCompSymb);
+                        List<CompDataPullAVj.stampedPrices> tempList = compStockData.convertDataFromRaw(newUrl, iCompSymb, outputNode);
 
                         block.release();
 
@@ -195,6 +240,14 @@ public class CompDataReduce {
         arrCompStockData.clear();
 
         int numThread = 0;
+
+        //Get output node for json parser to parse raw data.
+        String outputNode = getOutputNode(series, period);
+
+        //outputNode string shall not be empty
+        if (outputNode.equals(""))
+            return false;
+
         //even though data list is synchonized, mutex is used in addition to block attempt of parallel insertions into it.
         Semaphore mutex = new Semaphore(1, true);
         //permits limited number of simultaneous threads
@@ -251,7 +304,7 @@ public class CompDataReduce {
                         String newUrl = new String(compStockData.buildGetReqStockURL(series, iCompSymb, period));
                         System.out.println(newUrl);
 
-                        List<CompDataPullAVj.stampedPrices> tempList = compStockData.convertDataFromRaw(newUrl, iCompSymb);
+                        List<CompDataPullAVj.stampedPrices> tempList = compStockData.convertDataFromRaw(newUrl, iCompSymb, outputNode);
 
                         block.release();
 
@@ -440,6 +493,9 @@ public class CompDataReduce {
 
         if (!compListBurst.isEmpty()) {
             //TODO:1.Collect INTRA_DAY 2.Collect DAILY etc. - All data
+
+            CompDataCollect(compListBurst, Constants.INTRA_DAY, Constants.ONEMIN);
+
         }
         if (!compListIntraDay.isEmpty()){
             //TODO: 1. Collect INTRA_DAY
