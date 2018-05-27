@@ -22,10 +22,9 @@ public class CompDataReduce {
     public String sTimeSeries;
     public String sTimePeriod;
 
-    //Aggregated data list:
-    //Cleared every new pull iteration
-    //Stored
+    //Aggregated data list for all companies. Being updated every call.
     public ArrayList<List<CompDataPullAVj.stampedPrices>> arrCompStockData;
+    //Stock data for current company within request methods.
     private List<CompDataPullAVj.stampedPrices> listCompStockDataSync;
 
     CompDataReduce(String timeSeries, String timePeriod) {
@@ -76,6 +75,8 @@ public class CompDataReduce {
         public static final String THIRMIN = "30min";
         public static final String SIXTMIN = "60min";
 
+        public static final String FULL = "full";
+
     }
 
     /**
@@ -117,7 +118,9 @@ public class CompDataReduce {
     }
 
 
-
+    /**
+     * Company time gap indicator for timeframe where data is missing.
+     */
     private static class CompDataGap {
         public int secGap;
 
@@ -136,16 +139,26 @@ public class CompDataReduce {
 
     private HashMap<String, CompDataGap> hmUpTypeCompany = new HashMap<>();
 
+    /**
+     * Add new kv pair of time gap.
+     * @param compKey - 4-letter unique company index
+     * @param compGapValue - time gap where data is missing.
+     */
     private void hmAddUpTypeCompany(String compKey, CompDataGap compGapValue){
         hmUpTypeCompany.put(compKey, compGapValue);
     }
 
+    /**
+     * Clears time gap info for all companies.
+     */
     private void hmClearUpTypeCompany(){
         hmUpTypeCompany.clear();
     }
 
     /**
-     * Updates All data with parameters specified in sTimePeriod and sTimeSeries
+     * Updates All data with parameters specified in sTimePeriod and sTimeSeries. IMPORTANT: method clears the
+     * arrCompStockData as it is supposed to be called as a single burst data request with unique request type
+     * for all data.
      * Using threads for data pulling per company.
      * @return true on successful update of the arrCompStockData
      */
@@ -154,6 +167,7 @@ public class CompDataReduce {
         if(sTimePeriod.isEmpty() || sTimeSeries.isEmpty())
             return false;
 
+        //IMPORTANT - clears the data list
         arrCompStockData.clear();
 
         int numThread = 0;
@@ -231,13 +245,15 @@ public class CompDataReduce {
     /**
      * Updates company data for a specific company list and adjusted timeframe.
      * Using threads for data pulling per company.
-     * @param itSymbols list of company symbols to collect data for
-     * @param series type of data series to be requested
-     * @param period time period to collect data for
+     * @param itSymbols - list of company symbols to collect data for.
+     * @param series - type of data series to be requested.
+     * @param period - time period to collect data for.
+     * @param skipDataBegin - this ammount of last data units between Begin and End will not be added into list.
+     * @param skipDataEnd
      * @return
      */
-    public boolean CompDataCollect(ArrayList<String> itSymbols, String series, String period) {
-        arrCompStockData.clear();
+    public boolean CompDataCollect(ArrayList<String> itSymbols, String series, String period, int skipDataBegin, int skipDataEnd) {
+        //arrCompStockData.clear();
 
         int numThread = 0;
 
@@ -309,6 +325,9 @@ public class CompDataReduce {
                         block.release();
 
                         mutex.acquire();
+
+                        //throw away data blocks blocks between begin and end.
+                        tempList.subList(skipDataBegin, skipDataEnd).clear();
 
                         listCompStockDataSync = tempList;
 
@@ -384,6 +403,13 @@ public class CompDataReduce {
         }
     }
 
+    /**
+     * Clears company stock data. Required for data request of few types.
+     */
+    public void clearCurrentStockData(){
+        arrCompStockData.clear();
+    }
+
     public boolean addCompDataAll () {
 
         //Comp List for a burst pull/write
@@ -445,7 +471,6 @@ public class CompDataReduce {
                             secTimeGap = (int) ((dateNow.getTime()/1000 - readoutTime));//sec
                         }
 
-
                         //Key-values with exact time gaps. To be extracted later
                         hmAddUpTypeCompany(iCompSymb, new CompDataGap(secTimeGap));
 
@@ -492,13 +517,21 @@ public class CompDataReduce {
         //For older time, get monthly data
 
         if (!compListBurst.isEmpty()) {
-            //TODO:1.Collect INTRA_DAY 2.Collect DAILY etc. - All data
+            clearCurrentStockData();
+            CompDataCollect(compListBurst, Constants.INTRA_DAY, Constants.ONEMIN, 0, 0);
+            //The data block for one last day is to be skipped
+            CompDataCollect(compListBurst, Constants.DAILY, Constants.FULL, 0, 1);
 
-            CompDataCollect(compListBurst, Constants.INTRA_DAY, Constants.ONEMIN);
-
+            //TODO: Implement data extraction from arrCompStockData
         }
         if (!compListIntraDay.isEmpty()){
-            //TODO: 1. Collect INTRA_DAY
+
+
+            //Constants.INTRA_DAY / ONE_MIN default
+            CompDataCollectAll();
+
+            //TODO: Add data filter in accordance with DataGap
+            //TODO: Data filter is to be implemented inside the compListIntraDay.
         }
         if (!compListIntraWeek.isEmpty()){
 
@@ -515,6 +548,11 @@ public class CompDataReduce {
         //make a burst pull and write
 
         return true;
+    }
+    //TODO
+    private boolean WriteDataReduceBy(int DataFields){
+        //Uses hashmap for time filtering
+        //Uses DataFields as bitmask for required datafields
     }
 
 }
