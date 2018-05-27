@@ -14,8 +14,11 @@ import java.io.FileReader;
 
 public class CompDataReduce {
 
+    //Stock data base handling with compStockData object
     private CompDataPullAVj compStockData;
+    //Contains symbolic data for companies
     public CompSymbReader compSymbData;
+    //defines type of request for data pulling
     public String sTimeSeries;
     public String sTimePeriod;
 
@@ -37,6 +40,7 @@ public class CompDataReduce {
         listCompStockDataSync = Collections.synchronizedList( new ArrayList<>() );
     }
 
+    //Setters/Getters
     //Hint:Adaptation of time series type in cyclic updated of company data
     public void setsTimeSeries(String sTimeSeries) {
         this.sTimeSeries = sTimeSeries;
@@ -56,6 +60,47 @@ public class CompDataReduce {
 
     public CompSymbReader getCompSymbData() {
         return compSymbData;
+    }
+
+
+    //Constants
+    private static class KeyConstants {
+        public static final String INTRA_DAY = "TIME_SERIES_INTRADAY";
+        public static final String INTRA_WEEK = "TIME_SERIES_DAILY";
+        public static final String INTRA_MONTH = "TIME_SERIES_WEEKLY";
+
+        public static final String ONEMIN = "1min";
+        public static final String FIVEMIN = "5min";
+        public static final String FIFTMIN = "15min";
+        public static final String THIRMIN = "30min";
+        public static final String SIXTMIN = "60min";
+
+    }
+
+    private static class CompDataGap {
+        public int secGap;
+
+        public CompDataGap(int secNewGap){
+            this.secGap = secNewGap;
+        }
+
+        public void setSecGap(int secGap) {
+            this.secGap = secGap;
+        }
+
+        public int getSecGap() {
+            return secGap;
+        }
+    }
+
+    private HashMap<String, CompDataGap> hmUpTypeCompany = new HashMap<>();
+
+    private void hmAddUpTypeCompany(String compKey, CompDataGap compGapValue){
+        hmUpTypeCompany.put(compKey, compGapValue);
+    }
+
+    private void hmClearUpTypeCompany(){
+        hmUpTypeCompany.clear();
     }
 
     /**
@@ -288,8 +333,14 @@ public class CompDataReduce {
 
     public boolean addCompDataAll () {
 
-        //Comp List for a burst write
+        //Comp List for a burst pull/write
         ArrayList<String> compListBurst = new ArrayList<>();
+        //Comp List for an intra day pull/write
+        ArrayList<String> compListIntraDay = new ArrayList<>();
+        //Comp List for an intra week pull/write
+        ArrayList<String> compListIntraWeek = new ArrayList<>();
+        //Comp List for an intra month pull/write
+        ArrayList<String> compListIntraMonth = new ArrayList<>();
 
         //Current date/time
         //Use this item for date comparison between current and readout
@@ -305,73 +356,105 @@ public class CompDataReduce {
 
             File iDataFile = new File(fileName);
 
-            long secTimeGap = 0;
+            //data gap in seconds
+            int secTimeGap = 0;
 
             if (iDataFile.exists() && !iDataFile.isDirectory()) {
 
                 //Check latest item in each file
-                try (BufferedReader br = new BufferedReader(new FileReader(fileName))){
+                try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
                     String line = br.readLine();
 
-                    if (line.isEmpty()){
+                    if (line.isEmpty()) {
                         //add all data to reduced data list for burst-write
                         secTimeGap = 0;
-                    }
-                    else {
+                    } else {
                         String[] splitLine = line.split("\\,");
 
+                        //TODO: save as time in milliseconds - rewrite this part (NOT DATE format storage)
+/*
                         //calculate the time gap
                         DateStringConverter readoutDate = new DateStringConverter();
 
                         Date timeEntryAsDate = readoutDate.fromString(splitLine[0]);
                         //timeEntryDate = readoutDate.fromString(splitLine[0]);
 
-                        if (dateNow.compareTo(timeEntryAsDate) > 0){
+                        if (dateNow.compareTo(timeEntryAsDate) > 0) {
                             //get ms difference. Convert to int
-                            secTimeGap = (dateNow.getTime() - timeEntryAsDate.getTime())/1000;//sec
+                            secTimeGap = (int) ((dateNow.getTime() - timeEntryAsDate.getTime()) / 1000);//sec
+                        }
+*/
+                        //readout time changed to pure int value in sec
+                        int readoutTime = Integer.parseInt(splitLine[0]);
+
+                        if (readoutTime > 0) {
+                            //get ms difference. Convert to int
+                            secTimeGap = (int) ((dateNow.getTime()/1000 - readoutTime));//sec
+                        }
+
+
+                        //Key-values with exact time gaps. To be extracted later
+                        hmAddUpTypeCompany(iCompSymb, new CompDataGap(secTimeGap));
+
+                        //Map the symbol on appropriate lists
+                        if (secTimeGap <= 86400) {//shorter than day
+
+                            compListIntraDay.add(iCompSymb);
+
+                        } else if (secTimeGap <= 604800) {//shorter than week
+
+                            compListIntraWeek.add(iCompSymb);
+
+                        } else if (secTimeGap <= 2419200) {//shorter than month
+
+                            compListIntraMonth.add(iCompSymb);
+
                         }
 
                     }
 
-                }catch (IOException e)
-                {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-                //if item is up to date (not older than 1 day) put it in a list of items for a burst pull request (INTRADAY 1min)
 
-                //if item is outdated, fill the gap - check missing time span:
-                //If older than 1 month collect weekly data
-                //For the last month collect all weekly data
-                //For older time, get monthly data
-
-                if (secTimeGap == 0){
-                    //setsTimePeriod("1min");
-                    //setsTimeSeries("TIME_SERIES_INTRADAY");
-
-//TODO: add list key-values pairs for each company name in a first run and use concurrent "DataPuller".
-//TODO: Split methods to 1. Reader and key-values mapper 2. Read of key-value pairs and writer.
-
-                    ArrayList<String> striz = new ArrayList<String>();
-                    striz.add("sdf");
-                    CompDataCollect(new ArrayList<String>().add(iCompSymb), "TIME_SERIES_INTRADAY", "1min");
-
-                }else if (secTimeGap <= 86400) {//shorter than day
-
-                }else if (secTimeGap <= 604800){//shorter than week
-
-                }else if (secTimeGap <= 2419200){//shorter than month
-
-                }
+            }else {
+                //TODO: Create new Data file
 
 
-            } else {
-                //Create new Data file
+
                 //add item in a list of items for a burst write
+                //Key-values with exact time gaps. To be extracted later
+                hmAddUpTypeCompany(iCompSymb, new CompDataGap(0));
+                compListBurst.add(iCompSymb);
             }
 
-
         }
+
+        //if item is up to date (not older than 1 day) put it in a list of items for a burst pull request (INTRADAY 1min)
+
+        //if item is outdated, fill the gap - check missing time span:
+        //If older than 1 month collect weekly data
+        //For the last month collect all weekly data
+        //For older time, get monthly data
+
+        if (!compListBurst.isEmpty()) {
+            //TODO:1.Collect INTRA_DAY 2.Collect DAILY etc. - All data
+        }
+        if (!compListIntraDay.isEmpty()){
+            //TODO: 1. Collect INTRA_DAY
+        }
+        if (!compListIntraWeek.isEmpty()){
+
+            //The best fit:
+            //TODO: 1. Collect INTRA_DAY 2.Collect DAILY for last week
+        }
+        if (!compListIntraWeek.isEmpty()){
+
+            //The best fit:
+            //TODO: 1. Collect INTRA_DAY 2.Collect DAILY for last month
+        }
+
 
         //make a burst pull and write
 
