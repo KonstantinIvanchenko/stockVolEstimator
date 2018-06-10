@@ -1,18 +1,16 @@
 import javafx.util.converter.DateStringConverter;
 
-import java.io.IOException;
+import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import java.util.concurrent.*;
 
-import java.io.File;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-
 import java.lang.reflect.Field;
+
+import com.google.common.collect.Lists;
+
 
 
 public class CompDataReduce {
@@ -127,17 +125,17 @@ public class CompDataReduce {
      * Company time gap indicator for timeframe where data is missing.
      */
     private static class CompDataGap {
-        public int secGap;
+        public long secGap;
 
-        public CompDataGap(int secNewGap){
+        public CompDataGap(long secNewGap){
             this.secGap = secNewGap;
         }
 
-        public void setSecGap(int secGap) {
+        public void setSecGap(long secGap) {
             this.secGap = secGap;
         }
 
-        public int getSecGap() {
+        public long getSecGap() {
             return secGap;
         }
     }
@@ -441,7 +439,7 @@ public class CompDataReduce {
             File iDataFile = new File(fileName);
 
             //data gap in seconds
-            int secTimeGap = 0;
+            long secTimeGap = 0;
 
             if (iDataFile.exists() && !iDataFile.isDirectory()) {
 
@@ -473,11 +471,11 @@ public class CompDataReduce {
                         }
 */
                         //readout time changed to pure int value in sec
-                        int readoutTime = Integer.parseInt(splitLine[0]);
+                        long readoutTime = Integer.parseInt(splitLine[0]);
 
                         if (readoutTime > 0) {
                             //get ms difference. Convert to int
-                            secTimeGap = (int) ((dateNow.getTime()/1000 - readoutTime));//sec
+                            secTimeGap = ((dateNow.getTime()/1000 - readoutTime));//sec
                         }
 
                         //Key-values with exact time gaps. To be extracted later
@@ -512,9 +510,9 @@ public class CompDataReduce {
                     iDataFile.createNewFile();
 
                     //Write Content - Empty
-                    FileWriter writer = new FileWriter(iDataFile);
-                    writer.write("\n");
-                    writer.close();
+                    //FileWriter writer = new FileWriter(iDataFile);
+                    //writer.write("\n");
+                    //writer.close();
 
                 }catch (IOException e){
                     e.printStackTrace();
@@ -564,7 +562,8 @@ public class CompDataReduce {
         }
 
 
-        //make a burst pull and write
+        //perform a write
+        WriteDataReduceBy(fieldNames);
 
         return true;
     }
@@ -577,7 +576,7 @@ public class CompDataReduce {
         //Uses DataFields as bitmask for required datafields
 
         Field[] dataFieldToReduce = new Field[dataFields.length];
-        Object[] values = new Object[dataFields.length];
+        String[] values = new String[dataFields.length];
 
         try {
 
@@ -592,20 +591,42 @@ public class CompDataReduce {
             e.printStackTrace();
         }
 
+        //access in reverse order with Guava's random access also possible //Lists.reverse(). Not used now
+        //it might be necessary to keep the older data at the beginning of data files
         for (List<CompDataPullAVj.stampedPrices> listStampedPrices : arrCompStockData){
-            for(CompDataPullAVj.stampedPrices stampedPrices : listStampedPrices){
+          for(CompDataPullAVj.stampedPrices stampedPrices : listStampedPrices){
                 String currentCompany = stampedPrices.getcName();
-                int currentTimeStampInSec = (int)stampedPrices.getDate().getTime()/1000;
+                long currentTimeStampInSec = stampedPrices.getDate().getTime()/1000;
+
+                String fileName = "../volestimData/" + currentCompany + "Data.csv";
+                File iDataFile = new File(fileName);
 
                 try {
+                    if (!iDataFile.exists())
+                        continue;
+
+                    BufferedWriter buffwriter = new BufferedWriter(new FileWriter(iDataFile, true));
+
+                    String ls = System.getProperty("line.separator");
+
+                    //write the timestamp always first
+                    buffwriter.write(currentTimeStampInSec + ", ");
+
                     for (int i = 0; i < dataFields.length; i++) {
-                        values[i] = dataFieldToReduce[i].get(stampedPrices);
+                        //reflect field values by field names previously stored
+                        values[i] = dataFieldToReduce[i].get(stampedPrices).toString();
+                        //he following is necessary due to additional quotes after reflection by field
+                        values[i] = values[i].substring(1, values[i].length() - 1);
+
+                        buffwriter.write(values[i] + ", ");
                     }
-                }catch (IllegalAccessException e){
+
+                    buffwriter.write(ls);
+
+                    buffwriter.close();
+                }catch (Exception e){
                     e.printStackTrace();
                 }
-
-                
 
             }
         }

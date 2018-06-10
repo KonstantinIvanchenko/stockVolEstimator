@@ -39,7 +39,8 @@ public class CompDataPullAVj implements DataPull {
             Field[] fields = shortPrice.class.getDeclaredFields();
 
             for(Field f : fields){
-                fieldsMap.put( f.toString(), f);
+                //put as a key only the last substring of the whole name after "."
+                fieldsMap.put( f.toString().substring(f.toString().lastIndexOf(".")+1), f);
             }
         }
         public String openPrice;
