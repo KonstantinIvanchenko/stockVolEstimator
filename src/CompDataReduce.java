@@ -10,6 +10,9 @@ import java.util.concurrent.*;
 import java.io.File;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
+
+import java.lang.reflect.Field;
 
 
 public class CompDataReduce {
@@ -444,9 +447,13 @@ public class CompDataReduce {
                 try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
                     String line = br.readLine();
 
-                    if (line.isEmpty()) {
+                    if (line == null || line.equals("")) {
                         //add all data to reduced data list for burst-write
                         secTimeGap = 0;
+
+                        hmAddUpTypeCompany(iCompSymb, new CompDataGap(secTimeGap));
+                        compListBurst.add(iCompSymb);
+
                     } else {
                         String[] splitLine = line.split("\\,");
 
@@ -498,8 +505,18 @@ public class CompDataReduce {
 
             }else {
                 //TODO: Create new Data file
+                try{
+                    //Create new data file @String fileName = "../volestimData/" + iCompSymb + "Data.csv";
+                    iDataFile.createNewFile();
 
+                    //Write Content - Empty
+                    FileWriter writer = new FileWriter(iDataFile);
+                    writer.write("\n");
+                    writer.close();
 
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
 
                 //add item in a list of items for a burst write
                 //Key-values with exact time gaps. To be extracted later
@@ -549,10 +566,46 @@ public class CompDataReduce {
 
         return true;
     }
+
+
     //TODO
-    private boolean WriteDataReduceBy(int DataFields){
+    private boolean WriteDataReduceBy(Field[] dataFields){
+        //Convert date into time in ms (Same format as in hashmap)
         //Uses hashmap for time filtering
         //Uses DataFields as bitmask for required datafields
+
+        /*
+        for (Iterator<List<CompDataPullAVj.stampedPrices>> i = arrCompStockData.iterator(); i.hasNext(); )
+        {
+            CompDataPullAVj.stampedPrices stampedPrice = i.next();
+        }
+        */
+        try {
+            //Class dataClass = Class.forName("CompDataPullAVj.stampedPrices");
+            //Object dataClassObject = dataClass.getConstructor().newInstance();
+
+            //TODO: check if data fields of stampedPrices contains dataFields
+
+            String testField = new String("tbd");
+            
+
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        for (List<CompDataPullAVj.stampedPrices> listStampedPrices : arrCompStockData){
+            for(CompDataPullAVj.stampedPrices stampedPrices : listStampedPrices){
+                String currentCompany = stampedPrices.getcName();
+                String current
+                int currentTimeStampInSec = (int)stampedPrices.getDate().getTime()/1000;
+
+            }
+        }
+
+
+        return true;
     }
 
 }

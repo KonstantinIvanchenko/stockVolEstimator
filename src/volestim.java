@@ -43,7 +43,9 @@ public class volestim {
 */
 
         CompDataReduce compDataInst = new CompDataReduce("TIME_SERIES_INTRADAY", "1min");
-        compDataInst.CompDataCollect(compDataInst.compSymbData.compSymbols, compDataInst.sTimeSeries.toString(), compDataInst.sTimePeriod.toString());
+        //compDataInst.CompDataCollect(compDataInst.compSymbData.compSymbols, compDataInst.sTimeSeries.toString(), compDataInst.sTimePeriod.toString());
+
+        compDataInst.addCompDataAll();
 
 
         System.out.println("Volestim terminated.");

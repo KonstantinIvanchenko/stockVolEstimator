@@ -80,6 +80,8 @@ public class CompDataPullAVj implements DataPull {
             this.cName = cNameItem;
         }
 
+        public String getcName() {return  this.cName;}
+
         public Date getDate(){
             return this.timeStamp;
         }
@@ -226,8 +228,13 @@ public class CompDataPullAVj implements DataPull {
 
             ObjectMapper jmapper = new ObjectMapper();
 
+            //datePattern depends on the time series we request. For "min" of INTRA_DAY the pattern shall have extended form.
+            StringBuilder datePattern = new StringBuilder("yyyy-MM-dd");
 //TODO: check the date format for non INTRADAY requests
-            DateFormat dformat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+            if(outputNodeName.contains("min"))
+                datePattern.append(" HH:mm:ss");
+
+            DateFormat dformat = new SimpleDateFormat(datePattern.toString());
             jmapper.setDateFormat(dformat);
             jmapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
