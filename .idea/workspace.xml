@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="955301a5-5b55-4235-b547-30c2e9d4f508" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/companylist.csv" beforeDir="false" afterPath="$PROJECT_DIR$/companylist.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CompDataPullAVj.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompDataPullAVj.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CompDataReduce.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompDataReduce.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/volestim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/volestim.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,8 +27,8 @@
       <file leaf-file-name="CompDataReduce.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/CompDataReduce.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="580" column="9" lean-forward="true" selection-start-line="580" selection-start-column="9" selection-end-line="580" selection-end-column="9" />
+            <state relative-caret-position="715">
+              <caret line="604" column="40" selection-start-line="604" selection-start-column="40" selection-end-line="604" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#4146#4147#0" expanded="true" />
@@ -44,10 +41,15 @@
       <file leaf-file-name="CompDataPullAVj.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/CompDataPullAVj.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1431">
-              <caret line="82" column="53" selection-start-line="82" selection-start-column="53" selection-end-line="82" selection-end-column="53" />
+            <state relative-caret-position="285">
+              <caret line="34" column="27" selection-start-line="34" selection-start-column="21" selection-end-line="34" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#1372#1373#0" expanded="true" />
+                <element signature="e#1407#1408#0" expanded="true" />
+                <element signature="e#1602#1617#0" expanded="true" />
+                <element signature="e#2013#2014#0" expanded="true" />
+                <element signature="e#2044#2045#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -96,7 +98,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="4">
     <option name="x" value="-1" />
     <option name="width" value="961" />
     <option name="height" value="1053" />
@@ -231,7 +233,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="0" width="1922" height="1053" extended-state="6" />
+    <frame x="-1" y="0" width="961" height="1053" extended-state="4" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
@@ -298,7 +300,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/CompDataReduce.java</url>
-          <line>539</line>
+          <line>541</line>
           <properties />
           <option name="timeStamp" value="73" />
         </line-breakpoint>
@@ -443,6 +445,11 @@
           <caret line="168" column="90" lean-forward="true" selection-start-line="168" selection-start-column="90" selection-end-line="168" selection-end-column="90" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1372#1373#0" expanded="true" />
+            <element signature="e#1407#1408#0" expanded="true" />
+            <element signature="e#1602#1617#0" expanded="true" />
+            <element signature="e#2013#2014#0" expanded="true" />
+            <element signature="e#2044#2045#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -717,18 +724,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/CompDataPullAVj.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1431">
-          <caret line="82" column="53" selection-start-line="82" selection-start-column="53" selection-end-line="82" selection-end-column="53" />
+        <state relative-caret-position="285">
+          <caret line="34" column="27" selection-start-line="34" selection-start-column="21" selection-end-line="34" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1372#1373#0" expanded="true" />
+            <element signature="e#1407#1408#0" expanded="true" />
+            <element signature="e#1602#1617#0" expanded="true" />
+            <element signature="e#2013#2014#0" expanded="true" />
+            <element signature="e#2044#2045#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/CompDataReduce.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="580" column="9" lean-forward="true" selection-start-line="580" selection-start-column="9" selection-end-line="580" selection-end-column="9" />
+        <state relative-caret-position="715">
+          <caret line="604" column="40" selection-start-line="604" selection-start-column="40" selection-end-line="604" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#4146#4147#0" expanded="true" />

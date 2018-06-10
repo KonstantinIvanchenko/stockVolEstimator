@@ -7,10 +7,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+
+import java.lang.reflect.Field;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -35,6 +34,13 @@ public class CompDataPullAVj implements DataPull {
                 this.closePrice = items[3];
                 this.volume = items[4];
             }
+
+            //Initialize HashMap with FieldsMap for easy addressing to fields of interest later at reduce phase
+            Field[] fields = shortPrice.class.getDeclaredFields();
+
+            for(Field f : fields){
+                fieldsMap.put( f.toString(), f);
+            }
         }
         public String openPrice;
         public String highPrice;
@@ -52,6 +58,14 @@ public class CompDataPullAVj implements DataPull {
             this.highPrice = sp.highPrice;
             this.lowPrice = sp.lowPrice;
             this.volume = sp.volume;
+        }
+
+        //HashMap with field names for easy access at reduce phase
+        private final HashMap<String, Field> fieldsMap = new HashMap<String, Field>();
+
+        //Get field identifier by name
+        public Field whichField (String fieldName){
+            return fieldsMap.get(fieldName);
         }
 
     }

@@ -82,6 +82,8 @@ public class CompDataReduce {
 
     }
 
+    private final String[] fieldNames = {"closePrice","volume"};
+
     /**
      * Gets outputnode name for json parser
      * @param requestType - request type
@@ -569,27 +571,22 @@ public class CompDataReduce {
 
 
     //TODO
-    private boolean WriteDataReduceBy(Field[] dataFields){
+    private boolean WriteDataReduceBy(String[] dataFields){
         //Convert date into time in ms (Same format as in hashmap)
         //Uses hashmap for time filtering
         //Uses DataFields as bitmask for required datafields
 
-        /*
-        for (Iterator<List<CompDataPullAVj.stampedPrices>> i = arrCompStockData.iterator(); i.hasNext(); )
-        {
-            CompDataPullAVj.stampedPrices stampedPrice = i.next();
-        }
-        */
+        Field[] dataFieldToReduce = new Field[dataFields.length];
+        Object[] values = new Object[dataFields.length];
+
         try {
-            //Class dataClass = Class.forName("CompDataPullAVj.stampedPrices");
-            //Object dataClassObject = dataClass.getConstructor().newInstance();
 
             //TODO: check if data fields of stampedPrices contains dataFields
 
-            String testField = new String("tbd");
-            
-
-
+            //Initialize data fields
+            for (int i = 0; i < dataFields.length; i++){
+                dataFieldToReduce[i] = arrCompStockData.get(0).get(0).whichField(dataFields[i]);
+            }
 
         }catch (Exception e){
             e.printStackTrace();
@@ -598,8 +595,17 @@ public class CompDataReduce {
         for (List<CompDataPullAVj.stampedPrices> listStampedPrices : arrCompStockData){
             for(CompDataPullAVj.stampedPrices stampedPrices : listStampedPrices){
                 String currentCompany = stampedPrices.getcName();
-                String current
                 int currentTimeStampInSec = (int)stampedPrices.getDate().getTime()/1000;
+
+                try {
+                    for (int i = 0; i < dataFields.length; i++) {
+                        values[i] = dataFieldToReduce[i].get(stampedPrices);
+                    }
+                }catch (IllegalAccessException e){
+                    e.printStackTrace();
+                }
+
+                
 
             }
         }
